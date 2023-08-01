@@ -25,7 +25,7 @@ func main() {
 		AllowHeaders:  "HX-Request, HX-Trigger, HX-Trigger-Name, HX-Target, HX-Prompt",
 		ExposeHeaders: "HX-Push, HX-Redirect, HX-Location, HX-Refresh, HX-Trigger, HX-Trigger-After-Swap, HX-Trigger-After-Settle",
 	}))
-	routes.Listen(cfg)
+	routes.Listen(&cfg)
 }
 
 func setup() config.Config {

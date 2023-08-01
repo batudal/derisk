@@ -2,12 +2,11 @@ package routes
 
 import (
 	"github.com/batudal/derisk/app/config"
-	"github.com/gofiber/fiber/v2"
+	"github.com/batudal/derisk/app/handlers"
 )
 
-func Listen(cfg config.Config) {
-	cfg.App.Get("/", func(c *fiber.Ctx) error {
-		return c.Render("index", fiber.Map{})
-	})
-	cfg.App.Listen(":3000")
+func Listen(cfg *config.Config) {
+	cfg.App.Get("/", handlers.Index(cfg))
+	cfg.App.Static("/public", "./public")
+	cfg.App.Listen(":80")
 }

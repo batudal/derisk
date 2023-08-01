@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  de-risk:
+    build:
+      context: ./app
+      dockerfile: ./app.dockerfile
+    deploy:
+      mode: replicated
+      replicas: 1
+    env_file:
+      - .env
+    ports:
+      - "80:80"
