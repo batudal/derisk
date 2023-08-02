@@ -1,5 +1,31 @@
-<header class="sticky top-0 backdrop-blur-sm h-16 flex-row">
-  <div class="w-52 h-6">
-    <img src="../../../public/logotype.png" alt="De-Risk Logo" class="h-6">
+<header
+  class="sticky top-0 backdrop-blur-sm bg-derisk-950/80 h-16 flex flex-row items-center px-16 border-b border-derisk-800">
+  <a class="w-52 h-6" href="/">
+    <img src="../../../public/images/logotype.png" alt="De-Risk Logo" class="h-6">
+  </a>
+  <div class="flex flex-row items-center justify-center w-full gap-8">
+    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100" href="/about">
+      About
+    </a>
+    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100" href="/pricing">
+      Pricing
+    </a>
+    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100" href="/blog">
+      Blog
+    </a>
+  </div>
+  <div class="flex flex-row items-center gap-3" hx-target="body" hx-swap="afterend">
+    <p class="text-derisk-300 text-sm font-semibold whitespace-nowrap cursor-pointer" hx-get="/modals/feedback">
+      Feedback
+    </p>
+    <div class="flex flex-row bg-derisk-100 rounded-md px-3 py-1.5" hx-get="/modals/beta-list">
+      <p class="text-derisk-950 text-sm font-semibold whitespace-nowrap">
+        Join beta list
+      </p>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+        class="stroke-derisk-950">
+        <path d="M9.16699 7.5L11.667 10L9.16699 12.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
   </div>
 </header>
