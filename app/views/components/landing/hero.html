@@ -1,11 +1,36 @@
 <div class="bg-[url('../../public/images/grid.png')] w-full flex flex-col items-center bg-cover overflow-x-hidden">
-  <div class="flex flex-row items-center max-w-[1278px] gap-24 mt-24 px-16">
-    <div class="flex flex-col align-start min-w-[424px] gap-8">
-      <h1 class="font-bold text-5xl text-derisk-100">Risk management for early-stage startups</h1>
-      <p class="font-normal text-xl text-derisk-200 ">Empowering early-stage visionaries with a risk management
+  <div class="flex flex-row items-center max-w-[1278px] gap-12 md:gap-24 mt-24 px-0 sm:px-8 md:px-16">
+    <div class="flex flex-col items-center sm:items-start sm:align-start sm:min-w-[480px] gap-8 px-8 box-border">
+      <h1 class="font-bold text-5xl text-derisk-100 tracking-tighter text-center sm:text-left">Risk management for
+        early-stage startups</h1>
+      <p class="font-normal text-xl text-derisk-200 text-center sm:text-left">Empowering early-stage visionaries with a
+        risk management
         tool that tames doubt and fuels breakthroughs.</p>
+      <div class="flex flex-row gap-3">
+        <div
+          class="flex flex-row bg-derisk-100 rounded-md px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-2 active:bg-derisk-150"
+          hx-get="/modals/beta-list" hx-target="body" hx-swap="beforeend">
+          <p class="text-derisk-950 text-sm font-semibold whitespace-nowrap">
+            Join beta list
+          </p>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+            class="stroke-derisk-950">
+            <path d="M9.16699 7.5L11.667 10L9.16699 12.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div
+          class="text-derisk-300 flex flex-row items-center px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-4 hover:text-derisk-100 stroke-derisk-300 hover:stroke-derisk-100 active:text-derisk-150 transition ease-in-out"
+          hx-get="/modals/feedback">
+          <p class="text-sm font-semibold whitespace-nowrap">
+            Read more
+          </p>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M9.16699 7.5L11.667 10L9.16699 12.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+      </div>
     </div>
     <img src="../../public/images/dashboard.png" alt="De-Risk Hero"
-      class="h-full w-[920px] rounded-md border border-derisk-800">
+      class="h-full w-[920px] rounded-md border border-derisk-800 hidden sm:block">
   </div>
 </div>

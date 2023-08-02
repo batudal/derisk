@@ -14,6 +14,7 @@ module.exports = {
         derisk: {
           primary: '#DB2777',
           100: '#FFFFFF',
+          150: '#D4D8DD',
           200: '#9DA2A8',
           300: '#5F646C',
           500: '#33363D',
@@ -25,5 +26,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // require('@tailwindcss/forms'),
+  ],
 }

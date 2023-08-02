@@ -59,3 +59,12 @@ body{
 .quote-gradient{
   background: var(--quote-gradient, linear-gradient(225deg,rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0)));
 }
+
+.select {
+  outline: none;
+  cursor: pointer;
+  background-image: url("../public/icons/caret-down.svg");
+  background-blend-mode: lighten;
+  background-position: 100%;
+  background-repeat: no-repeat;
+}

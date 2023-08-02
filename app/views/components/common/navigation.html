@@ -1,24 +1,30 @@
 <header
-  class="sticky top-0 backdrop-blur-sm bg-derisk-950/80 h-16 flex flex-row items-center px-16 border-b border-derisk-800">
-  <a class="w-52 h-6" href="/">
+  class="sticky top-0 backdrop-blur-sm bg-derisk-950/80 h-16 flex flex-row items-center justify-between px-4 sm:px-8  border-b border-derisk-800 z-10">
+  <a class="min-w-[120px] md:min-w-[232px] h-6" href="/">
     <img src="../../../public/images/logotype.png" alt="De-Risk Logo" class="h-6">
   </a>
-  <div class="flex flex-row items-center justify-center w-full gap-8">
-    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100" href="/about">
+  <div class="hidden sm:flex flex-row items-center justify-center w-full gap-8">
+    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100 focus:text-derisk-150" href="/about">
       About
     </a>
-    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100" href="/pricing">
+    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100 focus:text-derisk-150" href="/pricing">
       Pricing
     </a>
-    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100" href="/blog">
+    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100 focus:text-derisk-150" href="/blog">
       Blog
     </a>
   </div>
-  <div class="flex flex-row items-center gap-3" hx-target="body" hx-swap="afterend">
-    <p class="text-derisk-300 text-sm font-semibold whitespace-nowrap cursor-pointer" hx-get="/modals/feedback">
-      Feedback
-    </p>
-    <div class="flex flex-row bg-derisk-100 rounded-md px-3 py-1.5" hx-get="/modals/beta-list">
+  <div class="hidden sm:flex flex-row items-center gap-3" hx-target="body" hx-swap="afterend">
+    <div
+      class="text-derisk-300 flex flex-row items-center px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-4 hover:text-derisk-100 active:text-derisk-150 transition ease-in-out"
+      hx-get="/modals/feedback">
+      <p class="text-sm font-semibold whitespace-nowrap">
+        Feedback
+      </p>
+    </div>
+    <div
+      class="flex flex-row bg-derisk-100 rounded-md px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-2 active:bg-derisk-150 "
+      hx-get="/modals/beta-list">
       <p class="text-derisk-950 text-sm font-semibold whitespace-nowrap">
         Join beta list
       </p>
@@ -28,4 +34,8 @@
       </svg>
     </div>
   </div>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+    class="sm:hidden cursor-pointer stroke-derisk-150 hover:stroke-derisk-100 active:stroke-derisk-200">
+    <path d="M11 17H19M5 12H19M11 7H19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
 </header>

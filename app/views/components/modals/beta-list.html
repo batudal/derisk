@@ -1,0 +1,37 @@
+<div id="modal-container" class="w-full h-full backdrop-blur-sm flex items-center justify-center fixed top-0 z-20"
+  _="on closeModal remove me">
+  <div class="w-full h-full absolute z-20" _="on click trigger closeModal"></div>
+  <div class="flex flex-col bg-derisk-950 z-30 gap-7 p-14 border border-derisk-800 rounded-md items-center">
+    <div class="flex flex-col gap-3 items-center">
+      <div class="py-1.5 px-2 bg-green-900/50 font-medium text-xs text-green-400 rounded-md">
+        Early Access</div>
+      <div class="flex flex-row items-center gap-2">
+        <h2 class="text-derisk-100 text-xl font-semibold">Welcome to</h2>
+        <img src="../../public/images/logo-lowercase.png" alt="De-Risk" class="h-6">
+      </div>
+      <p class="text-sm text-derisk-200 max-w-[360px] text-center">Join the beta list now get access to De-Risk earlier
+        than everybody
+        else.</p>
+    </div>
+    <form class="flex flex-col gap-3" hx-post="/join/beta-list" hx-swap="delete" hx-target="#modal-container">
+      <select name="customer_type" class="bg-derisk-900 appearance-none rounded-md border border-derisk-800 box-border px-3 py-1.5 text-sm text-derisk-150
+        ring-derisk-200 min-w-[240px] select">
+        <option value="solopreneur">🦩 Solopreneur</option>
+        <option value="startup-founder">🦄 Startup Founder</option>
+        <option value="incubator">🪺 Incubator</option>
+        <option value="enterprise">🏬 Enterprise</option>
+      </select>
+      <div class="flex flex-row items-center gap-2">
+        <input name="email" class="bg-derisk-900 rounded-md border border-derisk-800 box-border px-3 py-1.5 text-sm text-derisk-150
+        ring-derisk-200 min-w-[240px]" type="email" placeholder="Enter your email address" />
+        <button type="submit" class="flex flex-row items-center bg-derisk-100 rounded-md px-3 py-1.5 cursor-pointer no-underline hover:underline
+        hover:underline-offset-2 active:bg-derisk-150 text-derisk-950 text-sm h-8 font-semibold whitespace-nowrap">
+          Subscribe
+        </button>
+      </div>
+    </form>
+    <p class="text-derisk-300 text-xs text-center max-w-[360px]">Your email will only be used to communicate about the
+      upcoming product and nothing else.</p>
+
+  </div>
+</div>
