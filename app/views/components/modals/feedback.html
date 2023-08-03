@@ -1,0 +1,63 @@
+<div id="modal-container" class="w-full h-full backdrop-blur-sm flex items-center justify-center fixed top-0 z-20"
+  _="on closeModal remove me">
+  <div class="w-full h-full absolute z-20" _="on click trigger closeModal"></div>
+  <div class="flex flex-col bg-derisk-950 z-30 gap-7 px-14 py-10 border border-derisk-800 rounded-md items-center
+    max-w-[472px] box-border">
+    <div class="flex flex-col gap-3 items-center w-full">
+      <div class="py-1.5 px-2 bg-green-900/50 font-medium text-xs text-green-400 rounded-md">
+        Early Access</div>
+      <div class="flex flex-row items-center gap-2">
+        <h2 class="text-derisk-100 text-xl font-semibold">Welcome to</h2>
+        <img src="../../public/images/logo-lowercase.png" alt="De-Risk" class="h-6">
+      </div>
+      <p class="text-sm text-derisk-200 w-full text-center">Give feedback to be part of the process and shape the future
+        of
+        innovation management with me.</p>
+    </div>
+    <form class="flex flex-col gap-3 w-full" hx-post="/feedback" hx-swap="outerHTML" hx-target="#modal-container">
+      <select name="customer_type" class="bg-derisk-900 appearance-none rounded-md border border-derisk-800  px-3 py-1.5 text-sm text-derisk-150
+        ring-derisk-200 max-w-[360px] select">
+        {{if eq .CustomerType "solopreneur"}}
+        <option value="solopreneur" selected>🦩 Solopreneur</option>
+        {{else}}
+        <option value="solopreneur">🦩 Solopreneur</option>
+        {{end}}
+        {{if eq .CustomerType "startup-founder"}}
+        <option value="startup-founder" selected>🦄 Startup Founder</option>
+        {{else}}
+        <option value="startup-founder">🦄 Startup Founder</option>
+        {{end}}
+        {{if eq .CustomerType "incubator"}}
+        <option value="incubator" selected>🪺 Incubator</option>
+        {{else}}
+        <option value="incubator">🪺 Incubator</option>
+        {{end}}
+        {{if eq .CustomerType "enterprise"}}
+        <option value="enterprise" selected>🏬 Enterprise</option>
+        {{else}}
+        <option value="enterprise">🏬 Enterprise</option>
+        {{end}}
+      </select>
+      <input name="email" class="bg-derisk-900 rounded-md border border-derisk-800 box-border px-3 py-1.5 text-sm text-derisk-150
+        ring-derisk-200 min-w-[360px]" type="email" placeholder="Enter your email address" value="{{.Email}}" />
+      {{if .Error}}
+      <p class="text-red-500 text-xs text-center max-w-[360px]">{{.Error}}</p>
+      {{end}}
+      <textarea name="message" rows="6" class="resize-none bg-derisk-900 rounded-md border border-derisk-800 box-border px-3
+        py-1.5 text-sm text-derisk-150 placeholder-derisk-300
+        ring-derisk-200 w-full"
+        placeholder="How do you measure your risks now? Do you need this tool or is it a nice to have for you?"></textarea>
+      {{if .Error}}
+      <p class="text-red-500 text-xs text-center max-w-[360px]">{{.Error}}</p>
+      {{end}}
+      <button type="submit" class="w-full text-center bg-derisk-100 rounded-md px-3 py-1.5 cursor-pointer no-underline hover:underline
+        hover:underline-offset-2 active:bg-derisk-150 text-derisk-950 text-sm h-8 font-semibold whitespace-nowrap">
+        Send feedback
+      </button>
+    </form>
+    <p class="text-derisk-300 text-xs text-center w-full border-t border-derisk-800 p-4">Your email will only be
+      used to communicate about
+      the
+      upcoming product and nothing else.</p>
+  </div>
+</div>

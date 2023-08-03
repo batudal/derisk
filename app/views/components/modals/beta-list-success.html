@@ -1,0 +1,85 @@
+<div id="modal-container" class="w-full h-full backdrop-blur-sm flex items-center justify-center fixed top-0 z-20" _="on closeModal remove me
+  init celebrate()">
+  <div class="w-full h-full absolute z-20" _="on click trigger closeModal"></div>
+  <div class="flex flex-col bg-derisk-950 z-30 gap-7 p-14 border border-derisk-800 rounded-md items-center">
+    <div class="flex flex-col gap-3 items-center">
+      <div class="py-1.5 px-2 bg-green-900/50 font-medium text-xs text-green-400 rounded-md">
+        Early Access</div>
+      <div class="flex flex-row items-center gap-2">
+        <h2 class="text-derisk-100 text-xl font-semibold">Welcome to</h2>
+        <img src="../../public/images/logo-lowercase.png" alt="De-Risk" class="h-6">
+      </div>
+      {{if .LeftFeedback}}
+      <p class="text-sm text-derisk-200 max-w-[360px] text-center">You’ve joined beta list as well. You will get e-mails
+        about
+        the development progress (that you can reply). Thank you for your involvement.<br /><br /> <span
+          class="text-derisk-100 font-medium">Let's build this
+          together 💪</span></p>
+      {{else}}
+      <p class="text-sm text-derisk-200 max-w-[360px] text-center">You’ve joined beta list. You will get e-mails about
+        the development progress (that you can reply). Or you can just go ahead and leave a juicy feedback.</p>
+      {{end}}
+    </div>
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-row items-center gap-2">
+        {{if .LeftFeedback}}
+        <button type="button" class="flex flex-row items-center bg-derisk-100 rounded-md px-3 py-1.5 cursor-pointer no-underline hover:underline
+        hover:underline-offset-2 active:bg-derisk-150 text-derisk-950 text-sm h-8 font-semibold
+          whitespace-nowrap" _="on click trigger closeModal">
+          Go to home page
+        </button>
+        {{else}}
+        <div
+          class="text-derisk-300 flex flex-row items-center px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-4 hover:text-derisk-100 active:text-derisk-150 transition ease-in-out"
+          _="on click trigger closeModal">
+          <p class="text-sm font-semibold whitespace-nowrap">
+            No, thanks
+          </p>
+        </div>
+        <button type="button" class="flex flex-row items-center bg-derisk-100 rounded-md px-3 py-1.5 cursor-pointer no-underline hover:underline
+        hover:underline-offset-2 active:bg-derisk-150 text-derisk-950 text-sm h-8 font-semibold
+          whitespace-nowrap" hx-get="modals/feedback?email={{.Email}}&customer_type={{.CustomerType}}"
+          hx-target="#modal-container" hx-swap="outerHTML">
+          Leave feedback
+        </button>
+        {{end}}
+      </div>
+    </div>
+  </div>
+  <script>
+    var count = 200;
+    var defaults = {
+      origin: {y: 0.7}
+    };
+
+    function fire(particleRatio, opts) {
+      confetti(Object.assign({}, defaults, opts, {
+        particleCount: Math.floor(count * particleRatio)
+      }));
+    }
+
+    function celebrate() {
+      fire(0.25, {
+        spread: 26,
+        startVelocity: 55,
+      });
+      fire(0.2, {
+        spread: 60,
+      });
+      fire(0.35, {
+        spread: 100,
+        decay: 0.91,
+        scalar: 0.8
+      });
+      fire(0.1, {
+        spread: 120,
+        startVelocity: 25,
+        decay: 0.92,
+        scalar: 1.2
+      });
+      fire(0.1, {
+        spread: 120,
+        startVelocity: 45,
+      });
+    }
+  </script>

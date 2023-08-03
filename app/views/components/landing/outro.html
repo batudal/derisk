@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-3 items-center max-w-[520px]">
     <div class="py-1.5 px-2 bg-green-900/50 font-medium text-xs text-green-400 rounded-md">
       Free for Solopreneurs</div>
-    <h1 class="text-5xl text-derisk-100 font-semibold text-center tracking-tighter">The toolkit for managing innovation
+    <h1 class="text-5xl text-derisk-100 font-bold text-center tracking-tighter">The toolkit for managing innovation
     </h1>
   </div>
   <p class="text-xl text-derisk-200 font-normal text-center max-w-[720px]">Innovation is about risk and reward. If you
@@ -11,7 +11,7 @@
   <div class="flex flex-row items-center gap-2">
     <div
       class="flex flex-row bg-derisk-100 rounded-md px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-2 active:bg-derisk-150"
-      hx-get="/modals/beta-list">
+      hx-get="/modals/beta-list" hx-target="body" hx-swap="beforeend">
       <p class="text-derisk-950 text-sm font-semibold whitespace-nowrap">
         Join beta list
       </p>
@@ -22,7 +22,7 @@
     </div>
     <div
       class="text-derisk-300 flex flex-row items-center px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-4 hover:text-derisk-100 stroke-derisk-300 hover:stroke-derisk-100 active:text-derisk-150 transition ease-in-out"
-      hx-get="/modals/feedback">
+      hx-get="/modals/feedback" hx-target="body" hx-swap="beforeend">
       <p class="text-sm font-semibold whitespace-nowrap">
         Leave feedback
       </p>

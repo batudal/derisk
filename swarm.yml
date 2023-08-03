@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  hyppo:
+  de-risk:
     image: batudal/de-risk:0.1.0
     deploy:
       mode: replicated

@@ -17,9 +17,10 @@ type BetaListSignup struct {
 }
 
 type Feedback struct {
-	Email     string             `bson:"email"`
-	Message   string             `bson:"message"`
-	CreatedAt primitive.DateTime `bson:"created_at"`
+	Email        string             `bson:"email"`
+	CustomerType string             `bson:"customer_type"`
+	Message      string             `bson:"message"`
+	CreatedAt    primitive.DateTime `bson:"created_at"`
 }
 
 func JoinBetaList(cfg *config.Config) fiber.Handler {
@@ -34,10 +35,50 @@ func JoinBetaList(cfg *config.Config) fiber.Handler {
 				CreatedAt:    primitive.NewDateTimeFromTime(time.Now()),
 			})
 			if err != nil {
-				return err
+				return c.Render("components/modals/beta-list", fiber.Map{
+					"Error": "Something went wrong. Please try again later.",
+				})
 			}
-			return c.Render("components/modals/beta-list-success", fiber.Map{})
+			leftFeedback := false
+			if c.Query("left_feedback") == "true" {
+				leftFeedback = true
+			}
+			return c.Render("components/modals/beta-list-success", fiber.Map{
+				"Email":        c.FormValue("email"),
+				"CustomerType": c.FormValue("customer_type"),
+				"LeftFeedback": leftFeedback,
+			})
 		}
-		return err
+		return c.Render("components/modals/beta-list", fiber.Map{
+			"Error": c.FormValue("email") + " is already registered. Please try again with a different email.",
+		})
+	}
+}
+
+func SendFeedback(cfg *config.Config) fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		coll := cfg.Mc.Database("mvp").Collection("feedback")
+		_, err := coll.InsertOne(c.Context(), Feedback{
+			Email:        c.FormValue("email"),
+			CustomerType: c.FormValue("customer_type"),
+			Message:      c.FormValue("message"),
+			CreatedAt:    primitive.NewDateTimeFromTime(time.Now()),
+		})
+		if err != nil {
+			return c.Render("components/modals/feedback", fiber.Map{
+				"Error": "Something went wrong. Please try again later.",
+			})
+		}
+		subscribed := false
+		signup_coll := cfg.Mc.Database("mvp").Collection("beta-list-signups")
+		err = signup_coll.FindOne(c.Context(), bson.M{"email": c.FormValue("email")}).Decode(&BetaListSignup{})
+		if err == nil {
+			subscribed = true
+		}
+		return c.Render("components/modals/feedback-success", fiber.Map{
+			"Email":        c.FormValue("email"),
+			"CustomerType": c.FormValue("customer_type"),
+			"Subscribed":   subscribed,
+		})
 	}
 }
