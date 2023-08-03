@@ -2,7 +2,7 @@ version: '3'
 
 services:
   de-risk:
-    image: batudal/de-risk:0.1.0
+    image: batudal/de-risk-app:0.0.1
     deploy:
       mode: replicated
       replicas: 1
@@ -17,8 +17,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - volumes/.caddy_data:/data
-      - volumes/.caddy_config:/config
+      - ./volumes/.caddy_data:/data
+      - ./volumes/.caddy_config:/config
 volumes:
   .caddy_data:
     external: true
