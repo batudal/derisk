@@ -5,6 +5,6 @@
   {{ template "components/landing/features"}}
   {{ template "components/landing/outro"}}
   {{ if eq .Modal "feedback"}}
-  {{ template "components/modals/feedback"}}
+  {{ template "components/modals/feedback" .}}
   {{ end }}
 </div>
