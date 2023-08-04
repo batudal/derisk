@@ -40,7 +40,7 @@ func JoinBetaList(cfg *config.Config) fiber.Handler {
 					"Error": "Something went wrong. Please try again later.",
 				})
 			}
-			err = services.JoinBetaListEmail(cfg, c.FormValue("email"))
+			err = services.JoinBetaListEmail(cfg, c.FormValue("email"), c.FormValue("customer_type"))
 			if err != nil {
 				return c.Render("components/modals/beta-list", fiber.Map{
 					"Error": err.Error(),

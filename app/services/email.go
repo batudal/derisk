@@ -8,13 +8,19 @@ import (
 	"github.com/resendlabs/resend-go"
 )
 
-func JoinBetaListEmail(cfg *config.Config, email string) error {
+func JoinBetaListEmail(cfg *config.Config, email string, customer_type string) error {
 	t, err := template.ParseFiles("./views/emails/betalist.html")
 	if err != nil {
 		return err
 	}
 	body := new(bytes.Buffer)
-	err = t.Execute(body, struct{}{})
+	err = t.Execute(body, struct {
+		Email        string
+		CustomerType string
+	}{
+		Email:        email,
+		CustomerType: customer_type,
+	})
 	if err != nil {
 		return err
 	}
