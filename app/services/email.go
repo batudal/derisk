@@ -33,5 +33,6 @@ func JoinBetaListEmail(cfg *config.Config, email string, customer_type string) e
 	if err != nil {
 		return err
 	}
+	// delete later
 	return nil
 }
