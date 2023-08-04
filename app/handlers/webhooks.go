@@ -20,6 +20,9 @@ func GithubWebhook(cfg *config.Config) fiber.Handler {
 			println("Key:", key, "Value:", value)
 		}
 		println("Action:", jsonMap["action"])
+		println("Sender:", jsonMap["sender"])
+		println("Repository:", jsonMap["repository"])
+		println("Pusher:", jsonMap["pusher"])
 
 		// bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_TOKEN"))
 		// if err != nil {
