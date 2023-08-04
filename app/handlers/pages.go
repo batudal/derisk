@@ -7,6 +7,8 @@ import (
 
 func Index(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		return c.Render("pages/index", fiber.Map{}, "layouts/public")
+		return c.Render("pages/index", fiber.Map{
+			"Modal": c.Query("modal"),
+		}, "layouts/public")
 	}
 }

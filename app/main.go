@@ -20,6 +20,7 @@ import (
 
 func main() {
 	// todo: add limiter for spam
+	// todo: add helmet
 	cfg := setup()
 	cfg.App.Use(logger.New())
 	cfg.App.Use(cors.New(cors.Config{

@@ -4,4 +4,7 @@
   {{ template "components/landing/quote"}}
   {{ template "components/landing/features"}}
   {{ template "components/landing/outro"}}
+  {{ if eq .Modal "feedback"}}
+  {{ template "components/modals/feedback"}}
+  {{ end }}
 </div>
