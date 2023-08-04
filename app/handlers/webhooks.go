@@ -11,6 +11,7 @@ import (
 func GithubWebhook(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		headers := c.GetReqHeaders()
+		println("Headers:", headers)
 		println("Signature:", headers["X-Hub-Signature"])
 		jsonMap := make(map[string](interface{}))
 		err := c.BodyParser(&jsonMap)
