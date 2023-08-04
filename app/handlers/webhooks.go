@@ -12,7 +12,7 @@ func GithubWebhook(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		headers := c.GetReqHeaders()
 		println("Headers:", headers)
-		println("Signature:", headers["X-Hub-Signature"])
+		println("Signature:", headers["X-Hub-Signature-256"])
 		jsonMap := make(map[string](interface{}))
 		err := c.BodyParser(&jsonMap)
 		if err != nil {
