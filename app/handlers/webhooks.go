@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	// "os"
+	"os"
 
 	"github.com/batudal/derisk/app/config"
-	// "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	tgbot "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -15,19 +15,15 @@ func GithubWebhook(cfg *config.Config) fiber.Handler {
 		if err != nil {
 			return err
 		}
-		println(jsonMap)
-		for key, value := range jsonMap {
-			println("Key:", key, "Value:", value)
+		pusher := jsonMap["pusher"].(map[string]interface{})
+		name := pusher["name"].(string)
+		bot, err := tgbot.NewBotAPI(os.Getenv("TELEGRAM_TOKEN"))
+		if err != nil {
+			panic(err)
 		}
-		println("Action:", jsonMap["action"])
-		println("Sender:", jsonMap["sender"])
-		println("Repository:", jsonMap["repository"])
-		println("Pusher:", jsonMap["pusher"])
-
-		// bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_TOKEN"))
-		// if err != nil {
-		//     panic(err)
-		// }
+		msg := tgbot.NewMessageToChannel(os.Getenv("TELEGRAM_CHANNEL"), name+" just pushed to "+jsonMap["repository"].(map[string]interface{})["name"].(string))
+		msg.ParseMode = "markdown"
+		bot.Send(msg)
 		return c.SendString("OK")
 	}
 }
