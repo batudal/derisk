@@ -20,7 +20,7 @@ func GithubWebhook(cfg *config.Config) fiber.Handler {
 			println(err.Error())
 			c.SendStatus(400)
 		}
-		payload, err := hook.Parse(httpRequest, github.ReleaseEvent, github.PullRequestEvent)
+		payload, err := hook.Parse(httpRequest, github.PushEvent)
 		if err != nil {
 			println(err.Error())
 			c.SendStatus(400)
