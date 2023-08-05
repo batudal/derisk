@@ -1,39 +1,43 @@
 package handlers
 
 import (
-	"crypto/hmac"
-	"crypto/sha256"
+	"net/http"
 	"os"
 
 	"github.com/batudal/derisk/app/config"
+	"github.com/go-playground/webhooks/v6/github"
 	tgbot "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/gofiber/fiber/v2"
+	"github.com/valyala/fasthttp/fasthttpadaptor"
 )
 
 func GithubWebhook(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		headers := c.GetReqHeaders()
-		hash := hmac.New(sha256.New, c.Body())
-		secret := os.Getenv("GITHUB_WEBHOOK_SECRET")
-		hash.Write([]byte(secret))
-		if !hmac.Equal(hash.Sum(nil), []byte(headers["X-Hub-Signature-256"])) {
-			return c.SendStatus(403)
-		}
-		// temp
-		jsonMap := make(map[string](interface{}))
-		err := c.BodyParser(&jsonMap)
+		hook, _ := github.New(github.Options.Secret(os.Getenv("GITHUB_WEBHOOK_SECRET")))
+		httpRequest := new(http.Request)
+		err := fasthttpadaptor.ConvertRequest(c.Context(), httpRequest, true)
 		if err != nil {
-			return err
+			c.SendStatus(400)
 		}
-		pusher := jsonMap["pusher"].(map[string]interface{})
-		name := pusher["name"].(string)
-		bot, err := tgbot.NewBotAPI(os.Getenv("TELEGRAM_TOKEN"))
+		payload, err := hook.Parse(httpRequest, github.ReleaseEvent, github.PullRequestEvent)
 		if err != nil {
-			panic(err)
+			c.SendStatus(400)
 		}
-		msg := tgbot.NewMessageToChannel(os.Getenv("TELEGRAM_CHANNEL"), name+" just pushed to "+jsonMap["repository"].(map[string]interface{})["name"].(string))
-		msg.ParseMode = "markdown"
-		bot.Send(msg)
+		switch payload.(type) {
+		case github.PushPayload:
+			pusher_name := payload.(github.PushPayload).Pusher.Name
+			SendMessage("New push from " + pusher_name)
+		}
 		return c.SendString("OK")
 	}
+}
+
+func SendMessage(message string) {
+	bot, err := tgbot.NewBotAPI(os.Getenv("TELEGRAM_TOKEN"))
+	if err != nil {
+		panic(err)
+	}
+	msg := tgbot.NewMessageToChannel(os.Getenv("TELEGRAM_CHANNEL"), message)
+	msg.ParseMode = "markdown"
+	bot.Send(msg)
 }
