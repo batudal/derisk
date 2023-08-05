@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
 	"os"
 
 	"github.com/batudal/derisk/app/config"
@@ -11,9 +13,11 @@ import (
 func GithubWebhook(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		headers := c.GetReqHeaders()
-		println("Headers:", headers)
-		for k, v := range headers {
-			println(k, ":", v)
+		hash := hmac.New(sha256.New, c.Body())
+		secret := os.Getenv("GITHUB_WEBHOOK_SECRET")
+		hash.Write([]byte(secret))
+		if !hmac.Equal(hash.Sum(nil), []byte(headers["X-Hub-Signature-256"])) {
+			return c.SendString("OK")
 		}
 		// temp
 		jsonMap := make(map[string](interface{}))
