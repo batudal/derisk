@@ -15,6 +15,7 @@ func GithubWebhook(cfg *config.Config) fiber.Handler {
 		for k, v := range headers {
 			println(k, ":", v)
 		}
+		// temp
 		jsonMap := make(map[string](interface{}))
 		err := c.BodyParser(&jsonMap)
 		if err != nil {
