@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <title>De-Risk | For Lean Startups</title>
@@ -28,11 +28,9 @@
 </head>
 
 <body _="on every htmx:beforeSend NProgress.start() on every htmx:afterOnLoad NProgress.done()"
-  class="bg-derisk-950 relative">
+  class="bg-derisk-950 overflow-x-hidden">
   {{template "components/common/navigation" .}}
-  <main>
-    {{embed}}
-  </main>
+  {{embed}}
   {{template "components/common/footer" .}}
 </body>
 
