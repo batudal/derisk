@@ -9,6 +9,7 @@ func Listen(cfg *config.Config) {
 	cfg.App.Get("/", handlers.Index(cfg))
 	cfg.App.Get("/modals/beta-list", handlers.HandleBetaList(cfg))
 	cfg.App.Get("/modals/feedback", handlers.HandleFeedback(cfg))
+	cfg.App.Get("/modals/mobile-menu", handlers.HandleMobileMenu(cfg))
 	cfg.App.Post("/join/beta-list", handlers.JoinBetaList(cfg))
 	cfg.App.Post("/feedback", handlers.SendFeedback(cfg))
 	cfg.App.Post("/webhooks/github", handlers.GithubWebhook(cfg))

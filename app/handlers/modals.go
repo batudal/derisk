@@ -19,3 +19,9 @@ func HandleFeedback(cfg *config.Config) fiber.Handler {
 		})
 	}
 }
+
+func HandleMobileMenu(cfg *config.Config) fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		return c.Render("components/modals/mobile-menu", fiber.Map{})
+	}
+}
