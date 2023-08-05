@@ -17,10 +17,12 @@ func GithubWebhook(cfg *config.Config) fiber.Handler {
 		httpRequest := new(http.Request)
 		err := fasthttpadaptor.ConvertRequest(c.Context(), httpRequest, true)
 		if err != nil {
+			println(err.Error())
 			c.SendStatus(400)
 		}
 		payload, err := hook.Parse(httpRequest, github.ReleaseEvent, github.PullRequestEvent)
 		if err != nil {
+			println(err.Error())
 			c.SendStatus(400)
 		}
 		switch payload.(type) {
