@@ -17,7 +17,7 @@ func GithubWebhook(cfg *config.Config) fiber.Handler {
 		secret := os.Getenv("GITHUB_WEBHOOK_SECRET")
 		hash.Write([]byte(secret))
 		if !hmac.Equal(hash.Sum(nil), []byte(headers["X-Hub-Signature-256"])) {
-			return c.SendString("OK")
+			return c.SendStatus(403)
 		}
 		// temp
 		jsonMap := make(map[string](interface{}))
