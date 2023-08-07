@@ -2,6 +2,14 @@
 	email batudal@gmail.com
 }
 
+(static) {
+	@static {
+		file
+		path *.ico *.css *.js *.gif *.jpg *.jpeg *.png *.svg *.woff *.json *.txt *.xml *.webp
+	}
+	header @static Cache-Control max-age=604800
+}
+
 (security) {
 	header {
 		# enable HSTS
@@ -15,5 +23,6 @@
 
 de-risk.app {
 	encode zstd gzip
+	import static
 	reverse_proxy http://de-risk:80
 }

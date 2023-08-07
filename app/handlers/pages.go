@@ -5,8 +5,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func Index(cfg *config.Config) fiber.Handler {
+func HandleIndexPage(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		c.Append("Cache-Control", "no-cache, no-store, must-revalidate")
 		return c.Render("pages/index", fiber.Map{
 			"Modal":        c.Query("modal"),
 			"Email":        c.Query("email"),
@@ -15,8 +16,8 @@ func Index(cfg *config.Config) fiber.Handler {
 	}
 }
 
-func Blog(cfg *config.Config) fiber.Handler {
+func HandleAboutPage(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		return c.Render("pages/blog", fiber.Map{}, "layouts/public")
+		return c.Render("pages/about", fiber.Map{}, "layouts/public")
 	}
 }

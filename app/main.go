@@ -11,7 +11,6 @@ import (
 	"github.com/batudal/derisk/app/middleware"
 	"github.com/batudal/derisk/app/routes"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
@@ -36,10 +35,6 @@ func main() {
 		AllowHeaders:  "HX-Request, HX-Trigger, HX-Trigger-Name, HX-Target, HX-Prompt",
 		ExposeHeaders: "HX-Push, HX-Redirect, HX-Location, HX-Refresh, HX-Trigger, HX-Trigger-After-Swap, HX-Trigger-After-Settle",
 	}))
-	cfg.App.Use(cache.New(cache.Config{
-		Expiration:   30 * time.Minute,
-		CacheControl: true,
-	}))
 	cfg.App.Use(helmet.New(helmet.Config{
 		XSSProtection:             "1; mode=block",
 		CrossOriginEmbedderPolicy: "unsafe-none",
@@ -48,7 +43,6 @@ func main() {
 	}))
 	cfg.App.Use(middleware.AddCacheHeaders(cfg))
 	routes.Listen(&cfg)
-	// temp
 }
 
 func setup() config.Config {

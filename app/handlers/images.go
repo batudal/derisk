@@ -5,8 +5,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func HandleHeroImage(cfg *config.Config) fiber.Handler {
+func HandleLazyImage(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		return c.Render("components/landing/hero-image", fiber.Map{})
+		return c.Render("components/common/lazy-image", fiber.Map{
+			"ImageURL": c.Params("imageURL"),
+		})
 	}
 }

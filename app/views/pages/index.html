@@ -4,7 +4,10 @@
   {{ template "components/landing/quote"}}
   {{ template "components/landing/features"}}
   {{ template "components/landing/outro"}}
-  {{ if eq .Modal "feedback"}}
-  {{ template "components/modals/feedback" .}}
+  {{ if eq .Modal "feedback" }}
+  {{ template "components/modals/feedback" . }}
+  {{ end }}
+  {{ if eq .Modal "beta-list" }}
+  {{ template "components/modals/beta-list" . }}
   {{ end }}
 </div>
