@@ -3,12 +3,14 @@ package main
 import (
 	"flag"
 	"os"
+	"time"
 
 	"context"
 
 	"github.com/batudal/derisk/app/config"
 	"github.com/batudal/derisk/app/routes"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/template/html/v2"
@@ -51,11 +53,16 @@ func setup() config.Config {
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
+	app.Use(cache.New(cache.Config{
+		Expiration:   30 * time.Minute,
+		CacheControl: true,
+	}))
 	resend_client := resend.NewClient(os.Getenv("RESEND_API_KEY"))
 	cfg := config.Config{
-		App: app,
-		Mc:  mongodb_client,
-		Rs:  resend_client,
+		App:          app,
+		Mc:           mongodb_client,
+		Rs:           resend_client,
+		LastModified: time.Now().Format(time.RFC1123),
 	}
 	return cfg
 }

@@ -7,7 +7,8 @@ import (
 )
 
 type Config struct {
-	App *fiber.App
-	Mc  *mongo.Client
-	Rs  *resend.Client
+	App          *fiber.App
+	Mc           *mongo.Client
+	Rs           *resend.Client
+	LastModified string
 }
