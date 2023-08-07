@@ -13,7 +13,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/helmet"
+	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/template/html/v2"
 	"github.com/joho/godotenv"
 	"github.com/resendlabs/resend-go"
@@ -22,14 +25,28 @@ import (
 )
 
 func main() {
-	// todo: add limiter for spam
-	// todo: add helmet
 	cfg := setup()
 	cfg.App.Use(logger.New())
+	cfg.App.Use(recover.New())
+	cfg.App.Use(limiter.New(limiter.Config{
+		Max:        100,
+		Expiration: 1 * time.Minute,
+	}))
 	cfg.App.Use(cors.New(cors.Config{
 		AllowHeaders:  "HX-Request, HX-Trigger, HX-Trigger-Name, HX-Target, HX-Prompt",
 		ExposeHeaders: "HX-Push, HX-Redirect, HX-Location, HX-Refresh, HX-Trigger, HX-Trigger-After-Swap, HX-Trigger-After-Settle",
 	}))
+	cfg.App.Use(cache.New(cache.Config{
+		Expiration:   30 * time.Minute,
+		CacheControl: true,
+	}))
+	cfg.App.Use(helmet.New(helmet.Config{
+		XSSProtection:             "1; mode=block",
+		CrossOriginEmbedderPolicy: "unsafe-none",
+		CrossOriginResourcePolicy: "cross-origin",
+		CrossOriginOpenerPolicy:   "unsafe-none",
+	}))
+	cfg.App.Use(middleware.AddCacheHeaders(cfg))
 	routes.Listen(&cfg)
 }
 
@@ -54,10 +71,6 @@ func setup() config.Config {
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
-	app.Use(cache.New(cache.Config{
-		Expiration:   30 * time.Minute,
-		CacheControl: true,
-	}))
 	resend_client := resend.NewClient(os.Getenv("RESEND_API_KEY"))
 	cfg := config.Config{
 		App:          app,
@@ -65,6 +78,5 @@ func setup() config.Config {
 		Rs:           resend_client,
 		LastModified: time.Now().Format(time.RFC1123),
 	}
-	app.Use(middleware.AddCacheHeaders(cfg))
 	return cfg
 }
