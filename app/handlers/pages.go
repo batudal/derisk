@@ -14,3 +14,9 @@ func Index(cfg *config.Config) fiber.Handler {
 		}, "layouts/public")
 	}
 }
+
+func Blog(cfg *config.Config) fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		return c.Render("pages/blog", fiber.Map{}, "layouts/public")
+	}
+}

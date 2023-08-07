@@ -29,10 +29,18 @@ func JoinBetaListEmail(cfg *config.Config, email string, customer_type string) e
 		To:      []string{email},
 		Subject: "De-risk Beta List",
 		Html:    body.String(),
-	})
+		Text:    "Thank you for joining the De-risk beta list!",
+		Tags: []resend.Tag{
+			{
+				Name:  "beta-list",
+				Value: "subscribe",
+			},
+		},
+		Headers: map[string]string{
+			"List-Unsubscribe": "https://de-risk.app/unsubscribe-beta-list",
+		}})
 	if err != nil {
 		return err
 	}
-	// delete later
 	return nil
 }
