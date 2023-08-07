@@ -48,6 +48,7 @@ func main() {
 	}))
 	cfg.App.Use(middleware.AddCacheHeaders(cfg))
 	routes.Listen(&cfg)
+	// temp
 }
 
 func setup() config.Config {
