@@ -8,6 +8,7 @@ import (
 	"context"
 
 	"github.com/batudal/derisk/app/config"
+	"github.com/batudal/derisk/app/middleware"
 	"github.com/batudal/derisk/app/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cache"
@@ -64,5 +65,6 @@ func setup() config.Config {
 		Rs:           resend_client,
 		LastModified: time.Now().Format(time.RFC1123),
 	}
+	app.Use(middleware.AddCacheHeaders(cfg))
 	return cfg
 }
