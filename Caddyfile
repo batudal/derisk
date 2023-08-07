@@ -2,14 +2,6 @@
 	email batudal@gmail.com
 }
 
-(static) {
-	@static {
-		file
-		path *.ico *.css *.js *.gif *.jpg *.jpeg *.png *.svg *.woff *.json *.txt *.xml *.webp
-	}
-	header @static Cache-Control max-age=5184000
-}
-
 (security) {
 	header {
 		# enable HSTS
