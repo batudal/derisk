@@ -15,6 +15,5 @@
 
 de-risk.app {
 	encode zstd gzip
-	import static
 	reverse_proxy http://de-risk:80
 }
