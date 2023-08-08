@@ -1,35 +1,47 @@
-<header
-  class="sticky top-0 backdrop-blur-sm bg-derisk-950/80 h-16 flex flex-row items-center justify-between px-4 sm:px-8  border-b border-derisk-800 z-10">
-  <a class="min-w-[120px] md:min-w-[232px] h-6" href="/">
-    <img src="https://de-risk.sfo3.cdn.digitaloceanspaces.com/logotype.webp" alt="De-Risk Logo" class="h-6 w-[100px]">
-  </a>
-  <div class="hidden sm:flex flex-row items-center justify-center w-full gap-8">
-    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100 focus:text-derisk-150" href="/about">
-      About
+<div class="flex flex-col items-center w-full border-b border-derisk-800">
+  <header
+    class="sticky top-0 backdrop-blur-sm bg-derisk-950/80 h-16 flex flex-row items-center justify-between px-4 sm:px-8  z-10 w-full max-w-[1280px]">
+    <a class="min-w-[120px] h-6" href="/">
+      <img src="https://de-risk.sfo3.cdn.digitaloceanspaces.com/logotype.webp" alt="De-Risk Logo" class="h-6 w-[100px]">
     </a>
-    <a class="text-derisk-200 text-sm font-medium hover:text-derisk-100 focus:text-derisk-150" href="/pricing">
-      Pricing
-    </a>
-  </div>
-  <div class="hidden sm:flex flex-row items-center gap-3" hx-target="body" hx-swap="afterend">
-    <div
-      class="text-derisk-200 flex flex-row items-center px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-4 hover:text-derisk-100 active:text-derisk-150 transition ease-in-out"
-      hx-get="/modals/feedback" hx-target="body" hx-swap="beforeend">
-      <p class="text-sm font-semibold whitespace-nowrap">
-        Feedback
-      </p>
+    <div class="hidden sm:flex flex-row items-center gap-3" hx-target="body" hx-swap="afterend">
+      <div class="text-derisk-200 flex flex-row items-center px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-4 hover:text-derisk-100
+        active:text-derisk-150 transition ease-in-out">
+        <a href="/about" class="text-sm font-semibold whitespace-nowrap">
+          About
+        </a>
+      </div>
+      <div class="text-derisk-200 flex flex-row items-center px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-4 hover:text-derisk-100
+        active:text-derisk-150 transition ease-in-out">
+        <a href="/blog" class="text-sm font-semibold whitespace-nowrap">
+          Blog
+        </a>
+      </div>
+      <div class="text-derisk-200 flex flex-row items-center px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-4 hover:text-derisk-100
+        active:text-derisk-150 transition ease-in-out">
+        <a href="/pricing" class="text-sm font-semibold whitespace-nowrap">
+          Pricing
+        </a>
+      </div>
+      <div
+        class="text-derisk-200 flex flex-row items-center px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-4 hover:text-derisk-100 active:text-derisk-150 transition ease-in-out"
+        hx-get="/modals/feedback" hx-target="body" hx-swap="beforeend">
+        <p class="text-sm font-semibold whitespace-nowrap">
+          Feedback
+        </p>
+      </div>
+      <div
+        class="flex flex-row bg-derisk-100 rounded-md px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-2 active:bg-derisk-150 "
+        hx-get="/modals/beta-list">
+        <p class="text-derisk-950 text-sm font-semibold whitespace-nowrap">
+          Join beta list
+        </p>
+      </div>
     </div>
-    <div
-      class="flex flex-row bg-derisk-100 rounded-md px-3 py-1.5 cursor-pointer no-underline hover:underline hover:underline-offset-2 active:bg-derisk-150 "
-      hx-get="/modals/beta-list">
-      <p class="text-derisk-950 text-sm font-semibold whitespace-nowrap">
-        Join beta list
-      </p>
-    </div>
-  </div>
-  <svg hx-get="/modals/mobile-menu" hx-target="body" hx-swap="beforeend" width="24" height="24" viewBox="0 0 24 24"
-    fill="none" xmlns="http://www.w3.org/2000/svg"
-    class="sm:hidden cursor-pointer stroke-derisk-150 hover:stroke-derisk-100 active:stroke-derisk-200">
-    <path d="M11 17H19M5 12H19M11 7H19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-  </svg>
-</header>
+    <svg hx-get="/modals/mobile-menu" hx-target="body" hx-swap="beforeend" width="24" height="24" viewBox="0 0 24 24"
+      fill="none" xmlns="http://www.w3.org/2000/svg"
+      class="sm:hidden cursor-pointer stroke-derisk-150 hover:stroke-derisk-100 active:stroke-derisk-200">
+      <path d="M11 17H19M5 12H19M11 7H19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </header>
+</div>
