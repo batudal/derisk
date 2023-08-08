@@ -8,6 +8,9 @@ import (
 func Listen(cfg *config.Config) {
 	cfg.App.Get("/", handlers.HandleIndexPage(cfg))
 	cfg.App.Get("/about", handlers.HandleAboutPage(cfg))
+	cfg.App.Get("/blog", handlers.HandleBlogPage(cfg))
+	cfg.App.Get("/pricing", handlers.HandlePricingPage(cfg))
+	cfg.App.Get("/contact", handlers.HandleContactPage(cfg))
 	cfg.App.Get("/modals/beta-list", handlers.HandleBetaList(cfg))
 	cfg.App.Get("/modals/feedback", handlers.HandleFeedback(cfg))
 	cfg.App.Get("/modals/mobile-menu", handlers.HandleMobileMenu(cfg))
