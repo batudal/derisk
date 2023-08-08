@@ -14,7 +14,8 @@
         of
         innovation management with me.</p>
     </div>
-    <form class="flex flex-col gap-3 w-full" hx-post="/feedback" hx-swap="outerHTML" hx-target="#modal-container">
+    <form class="flex flex-col gap-3 w-full max-w-[360px]" hx-post="/feedback" hx-swap="outerHTML"
+      hx-target="#modal-container">
       <select name="customer_type" class="bg-derisk-900 appearance-none rounded-md border border-derisk-800  px-3 py-1.5 text-sm text-derisk-150
         ring-derisk-200 max-w-[360px] select">
         {{if eq .CustomerType "solopreneur"}}
@@ -39,7 +40,7 @@
         {{end}}
       </select>
       <input name="email" class="bg-derisk-900 rounded-md border border-derisk-800 box-border px-3 py-1.5 text-sm text-derisk-150
-        ring-derisk-200 w-full max-w-[360px]" type="email" placeholder="Enter your email address" value="{{.Email}}" />
+        ring-derisk-200 w-full" type="email" placeholder="Enter your email address" value="{{.Email}}" />
       {{if .Error}}
       <p class="text-red-500 text-xs text-center max-w-[360px]">{{.Error}}</p>
       {{end}}
