@@ -10,8 +10,14 @@ type Pricing struct {
 	TagColor     string
 	Price        string
 	Highlights   []string
-	Features     []string
+	Features     []Feature
 	CTA          string
+}
+
+type Feature struct {
+	Title   string
+	Enabled bool
+	Starred bool
 }
 
 func HandleIndexPage(cfg *config.Config) fiber.Handler {
@@ -44,12 +50,16 @@ func HandlePricingPage(cfg *config.Config) fiber.Handler {
 				TagColor:     "green",
 				Price:        "$0/mo",
 				Highlights: []string{
-					"Unlimited number of users",
-					"Unlimited number of projects",
+					"Create up to 5 projects",
+					"Create up to 5 tests per project",
 				},
-				Features: []string{
-					"Up to 5 projects",
-					"Up to 5 users",
+				Features: []Feature{
+					{"Analytics dashboard", true, false},
+					{"Access to all methods", true, false},
+					{"Unlimited assumptions per project", true, false},
+					{"Generate executive reports", false, false},
+					{"Invite team mates", false, false},
+					{"Create multiple teams", false, false},
 				},
 				CTA: "Join beta list",
 			},
@@ -58,12 +68,16 @@ func HandlePricingPage(cfg *config.Config) fiber.Handler {
 				TagColor:     "cyan",
 				Price:        "$99/mo",
 				Highlights: []string{
-					"Unlimited number of users",
-					"Unlimited number of projects",
+					"Unlimited number of tests",
+					"Unlimited number of assumptions",
 				},
-				Features: []string{
-					"Up to 5 projects",
-					"Up to 5 users",
+				Features: []Feature{
+					{"Analytics dashboard", true, false},
+					{"Access to all methods", true, false},
+					{"Invite team mates", true, false},
+					{"Generate executive reports", true, false},
+					{"Limited to 1 project", false, false},
+					{"Limited to 1 team", false, false},
 				},
 				CTA: "Join beta list",
 			},
@@ -72,13 +86,16 @@ func HandlePricingPage(cfg *config.Config) fiber.Handler {
 				TagColor:     "yellow",
 				Price:        "Custom",
 				Highlights: []string{
-					"Unlimited number of users",
-					"Unlimited number of projects",
+					"Unlimited number of tests",
+					"Unlimited number of assumptions",
 				},
-				Features: []string{
-					"Up to 5 projects",
-					"Up to 5 users",
-					"Custom features",
+				Features: []Feature{
+					{"Analytics dashboard", true, false},
+					{"Access to all methods", true, false},
+					{"Multiple projects", true, false},
+					{"Multiple teams", true, false},
+					{"Automated executive reports", false, true},
+					{"Growth board", false, true},
 				},
 				CTA: "Contact us",
 			},

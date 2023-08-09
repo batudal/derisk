@@ -27,6 +27,7 @@
       <div class="h-px w-full border-b border-derisk-900"></div>
       <div class="flex flex-col items-start w-full gap-2">
         {{range .Features}}
+        {{ if .Enabled}}
         <div class="flex flex-row gap-1 items-center">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -37,8 +38,32 @@
               d="M15 10L11 14L9 12M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z"
               stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <p class="text-sm text-derisk-100 font-normal">{{.}}</p>
+          <p class="text-sm text-derisk-100 font-normal">{{.Title}}</p>
         </div>
+        {{else if .Starred}}
+        <div class="flex flex-row gap-1 items-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M4.13118 10.2222C3.87616 9.98636 4.01469 9.56002 4.35962 9.51912L9.24721 8.9394C9.38779 8.92273 9.5099 8.83445 9.5692 8.7059L11.6307 4.23659C11.7762 3.92118 12.2246 3.92112 12.3701 4.23653L14.4316 8.7058C14.4909 8.83435 14.6122 8.92287 14.7528 8.93954L19.6407 9.51912C19.9856 9.56002 20.1237 9.98649 19.8687 10.2223L16.2556 13.5642C16.1517 13.6604 16.1054 13.8034 16.133 13.9423L17.0919 18.7697C17.1596 19.1104 16.797 19.3744 16.4939 19.2047L12.1992 16.8001C12.0757 16.7309 11.9256 16.7313 11.802 16.8004L7.50688 19.2041C7.20378 19.3738 6.84053 19.1104 6.90823 18.7697L7.86729 13.9426C7.89488 13.8037 7.84872 13.6603 7.74479 13.5642L4.13118 10.2222Z"
+              fill="#EAB308" stroke="#EAB308" stroke-width="1.62822" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <p class="text-sm text-derisk-100 font-normal">{{.Title}}</p>
+        </div>
+        {{else}}
+        <div class="flex flex-row gap-1 items-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="stroke-derisk-500">
+            <path
+              d="M12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20Z"
+              fill="black" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.44444 6.44444L17.5556 17.5556Z" fill="black" />
+            <path
+              d="M6.44444 6.44444L17.5556 17.5556M12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20Z"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <p class="text-sm text-derisk-300 font-normal">{{.Title}}</p>
+        </div>
+        {{end}}
         {{end}}
       </div>
       <div class="flex flex-row w-full justify-center rounded-md px-3 py-1.5 cursor-pointer text-derisk-150 no-underline hover:underline hover:underline-offset-2
