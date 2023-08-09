@@ -16,7 +16,6 @@ type Pricing struct {
 
 func HandleIndexPage(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		c.Append("Cache-Control", "no-cache, no-store, must-revalidate")
 		return c.Render("pages/index", fiber.Map{
 			"Modal":        c.Query("modal"),
 			"Email":        c.Query("email"),
@@ -79,6 +78,7 @@ func HandlePricingPage(cfg *config.Config) fiber.Handler {
 				Features: []string{
 					"Up to 5 projects",
 					"Up to 5 users",
+					"Custom features",
 				},
 				CTA: "Contact us",
 			},

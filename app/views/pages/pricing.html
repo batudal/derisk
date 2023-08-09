@@ -8,11 +8,14 @@
   </div>
   <div class="flex flex-row gap-6 w-full justify-center">
     {{ range .Tiers }}
-    <div class="flex flex-col gap-5 p-6 border border-derisk-800 rounded-md w-full max-w-[312px] items-center">
-      <div class="flex py-1.5 px-2 bg-{{.TagColor}}-900/50 font-medium text-xs text-{{.TagColor}}-400 rounded-md">
-        {{.CustomerType}}
+    <div
+      class="flex flex-col gap-5 p-6 border border-derisk-800 rounded-md w-full max-w-[312px] items-center self-start pricing-container even:border-derisk-600">
+      <div class="flex flex-col items-center gap-2">
+        <div class="flex py-1.5 px-2 bg-{{.TagColor}}-900/50 font-medium text-xs text-{{.TagColor}}-400 rounded-md">
+          {{.CustomerType}}
+        </div>
+        <h2 class="text-3xl text-derisk-100 font-medium text-center tracking-tighter">{{.Price}}</h2>
       </div>
-      <h2 class="text-3xl text-derisk-100 font-medium text-center tracking-tighter">{{.Price}}</h2>
       <div class="h-px w-full border-b border-derisk-900"></div>
       <div class="flex flex-col items-center gap-2">
         {{range .Highlights}}
