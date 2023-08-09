@@ -6,10 +6,10 @@
       Custom tailored to your needs.
     </p>
   </div>
-  <div class="flex flex-row gap-6 w-full justify-center">
+  <div class="flex flex-col md:flex-row gap-6 justify-center items-center w-full">
     {{ range .Tiers }}
     <div
-      class="flex flex-col gap-5 p-6 border border-derisk-800 rounded-md w-full max-w-[312px] items-center self-start pricing-container even:border-derisk-600">
+      class="flex flex-col gap-5 p-6 border border-derisk-800 rounded-md w-full max-w-[312px] items-center md:self-start even:border-derisk-600 pricing-container">
       <div class="flex flex-col items-center gap-2">
         <div class="flex py-1.5 px-2 bg-{{.TagColor}}-900/50 font-medium text-xs text-{{.TagColor}}-400 rounded-md">
           {{.CustomerType}}
