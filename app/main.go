@@ -10,6 +10,8 @@ import (
 	"github.com/batudal/derisk/app/config"
 	"github.com/batudal/derisk/app/middleware"
 	"github.com/batudal/derisk/app/routes"
+	"github.com/batudal/derisk/app/schema"
+	"github.com/batudal/derisk/app/services"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
@@ -42,6 +44,7 @@ func main() {
 		CrossOriginOpenerPolicy:   "unsafe-none",
 	}))
 	cfg.App.Use(middleware.AddCacheHeaders(cfg))
+	go services.ListenEmailRequests(&cfg)
 	routes.Listen(&cfg)
 }
 
@@ -68,10 +71,11 @@ func setup() config.Config {
 	})
 	resend_client := resend.NewClient(os.Getenv("RESEND_API_KEY"))
 	cfg := config.Config{
-		App:          app,
-		Mc:           mongodb_client,
-		Rs:           resend_client,
-		LastModified: time.Now().Format(time.RFC1123),
+		App:           app,
+		Mc:            mongodb_client,
+		Rs:            resend_client,
+		EmailRequests: make(chan schema.EmailRequest),
+		LastModified:  time.Now().Format(time.RFC1123),
 	}
 	return cfg
 }

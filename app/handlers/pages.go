@@ -14,6 +14,7 @@ type Pricing struct {
 	CTA          string
 }
 
+// todo: refactor to 'params' or smth
 type Feature struct {
 	Title   string
 	Enabled bool

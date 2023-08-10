@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/batudal/derisk/app/config"
+	"github.com/batudal/derisk/app/schema"
 	"github.com/batudal/derisk/app/services"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
@@ -11,26 +12,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type BetaListSignup struct {
-	Email        string             `bson:"email"`
-	CustomerType string             `bson:"customer_type"`
-	CreatedAt    primitive.DateTime `bson:"created_at"`
-}
-
-type Feedback struct {
-	Email        string             `bson:"email"`
-	CustomerType string             `bson:"customer_type"`
-	Message      string             `bson:"message"`
-	CreatedAt    primitive.DateTime `bson:"created_at"`
-}
-
 func JoinBetaList(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		var signup BetaListSignup
+		var signup schema.BetaListSignup
 		coll := cfg.Mc.Database("mvp").Collection("beta-list-signups")
 		err := coll.FindOne(c.Context(), bson.M{"email": c.FormValue("email")}).Decode(&signup)
 		if err != nil && err == mongo.ErrNoDocuments {
-			_, err := coll.InsertOne(c.Context(), BetaListSignup{
+			_, err := coll.InsertOne(c.Context(), schema.BetaListSignup{
 				Email:        c.FormValue("email"),
 				CustomerType: c.FormValue("customer_type"),
 				CreatedAt:    primitive.NewDateTimeFromTime(time.Now()),
@@ -40,12 +28,10 @@ func JoinBetaList(cfg *config.Config) fiber.Handler {
 					"Error": "Something went wrong. Please try again later.",
 				})
 			}
-			err = services.JoinBetaListEmail(cfg, c.FormValue("email"), c.FormValue("customer_type"))
-			if err != nil {
-				return c.Render("components/modals/beta-list", fiber.Map{
-					"Error": err.Error(),
-				})
-			}
+			_ = services.RequestEmail(cfg, &schema.Customer{
+				Email:        c.FormValue("email"),
+				CustomerType: c.FormValue("customer_type"),
+			}, "join-beta-list")
 			return c.Render("components/modals/beta-list-success", fiber.Map{
 				"Email":        c.FormValue("email"),
 				"CustomerType": c.FormValue("customer_type"),
@@ -61,7 +47,7 @@ func JoinBetaList(cfg *config.Config) fiber.Handler {
 func SendFeedback(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		coll := cfg.Mc.Database("mvp").Collection("feedback")
-		_, err := coll.InsertOne(c.Context(), Feedback{
+		_, err := coll.InsertOne(c.Context(), schema.Feedback{
 			Email:        c.FormValue("email"),
 			CustomerType: c.FormValue("customer_type"),
 			Message:      c.FormValue("message"),
@@ -72,9 +58,13 @@ func SendFeedback(cfg *config.Config) fiber.Handler {
 				"Error": "Something went wrong. Please try again later.",
 			})
 		}
+		_ = services.RequestEmail(cfg, &schema.Customer{
+			Email:        c.FormValue("email"),
+			CustomerType: c.FormValue("customer_type"),
+		}, "feedback")
 		subscribed := false
 		signup_coll := cfg.Mc.Database("mvp").Collection("beta-list-signups")
-		err = signup_coll.FindOne(c.Context(), bson.M{"email": c.FormValue("email")}).Decode(&BetaListSignup{})
+		err = signup_coll.FindOne(c.Context(), bson.M{"email": c.FormValue("email")}).Decode(&schema.BetaListSignup{})
 		if err == nil {
 			subscribed = true
 		}
