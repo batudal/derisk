@@ -6,6 +6,7 @@ import (
 	"github.com/batudal/derisk/app/config"
 	"github.com/batudal/derisk/app/schema"
 	"github.com/batudal/derisk/app/services"
+	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -14,9 +15,18 @@ import (
 
 func JoinBetaList(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		validate := validator.New()
+		err := validate.Struct(schema.BetaListSignup{
+			Email: c.FormValue("email"),
+		})
+		if err != nil {
+			return c.Render("components/modals/beta-list", fiber.Map{
+				"Error": "Please enter a valid email address.",
+			})
+		}
 		var signup schema.BetaListSignup
 		coll := cfg.Mc.Database("mvp").Collection("beta-list-signups")
-		err := coll.FindOne(c.Context(), bson.M{"email": c.FormValue("email")}).Decode(&signup)
+		err = coll.FindOne(c.Context(), bson.M{"email": c.FormValue("email")}).Decode(&signup)
 		if err != nil && err == mongo.ErrNoDocuments {
 			_, err := coll.InsertOne(c.Context(), schema.BetaListSignup{
 				Email:        c.FormValue("email"),
@@ -46,8 +56,18 @@ func JoinBetaList(cfg *config.Config) fiber.Handler {
 
 func SendFeedback(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		validate := validator.New()
+		err := validate.Struct(schema.BetaListSignup{
+			Email: c.FormValue("email"),
+		})
+		if err != nil {
+			return c.Render("components/modals/feedback", fiber.Map{
+				// todo: proper error handling
+				"Error": "Please enter a valid email address.",
+			})
+		}
 		coll := cfg.Mc.Database("mvp").Collection("feedback")
-		_, err := coll.InsertOne(c.Context(), schema.Feedback{
+		_, err = coll.InsertOne(c.Context(), schema.Feedback{
 			Email:        c.FormValue("email"),
 			CustomerType: c.FormValue("customer_type"),
 			Message:      c.FormValue("message"),

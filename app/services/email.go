@@ -93,7 +93,7 @@ func templateToHTML(temp string, customer schema.Customer) (string, error) {
 
 func send(cfg *config.Config, customer schema.Customer, html string, subject string, tags []resend.Tag) error {
 	_, err := cfg.Rs.Emails.Send(&resend.SendEmailRequest{
-		From:    "Founder <batu@de-risk.app>",
+		From:    "De-risk <batu@de-risk.app>",
 		To:      []string{customer.Email},
 		Subject: subject,
 		Html:    html,
