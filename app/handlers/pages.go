@@ -71,6 +71,7 @@ func HandlePricingPage(cfg *config.Config) fiber.Handler {
 				Highlights: []string{
 					"Unlimited number of tests",
 					"Unlimited number of assumptions",
+					"Unlimited team members",
 				},
 				Features: []Feature{
 					{"Analytics dashboard", true, false},

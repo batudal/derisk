@@ -57,13 +57,26 @@ func JoinBetaList(cfg *config.Config) fiber.Handler {
 func SendFeedback(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		validate := validator.New()
-		err := validate.Struct(schema.BetaListSignup{
-			Email: c.FormValue("email"),
+		err := validate.Struct(schema.Feedback{
+			Email:   c.FormValue("email"),
+			Message: c.FormValue("message"),
 		})
+		var email_error string
+		var message_error string
 		if err != nil {
+			for _, err := range err.(validator.ValidationErrors) {
+				if err.Field() == "Email" {
+					email_error = "Please enter a valid email address."
+				}
+				if err.Field() == "Message" {
+					message_error = "Please enter a message between 10-500 characters."
+				}
+			}
 			return c.Render("components/modals/feedback", fiber.Map{
-				// todo: proper error handling
-				"Error": "Please enter a valid email address.",
+				"Email":        c.FormValue("email"),
+				"CustomerType": c.FormValue("customer_type"),
+				"EmailError":   email_error,
+				"MessageError": message_error,
 			})
 		}
 		coll := cfg.Mc.Database("mvp").Collection("feedback")

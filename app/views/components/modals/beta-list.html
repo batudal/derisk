@@ -22,7 +22,7 @@
         <option value="incubator">🪺 Incubator</option>
         <option value="enterprise">🏬 Enterprise</option>
       </select>
-      <input name="email" class="flex bg-derisk-900 rounded-md border border-derisk-800 box-border px-3 py-1.5 text-sm text-derisk-150
+      <input required name="email" class="flex bg-derisk-900 rounded-md border border-derisk-800 box-border px-3 py-1.5 text-sm text-derisk-150
         ring-derisk-200 w-full max-w-[360px]" type="email" placeholder="Enter your email address" />
       {{if .Error}}
       <p class="text-red-500 text-xs text-center max-w-[360px]">{{.Error}}</p>
