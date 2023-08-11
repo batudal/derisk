@@ -19,6 +19,7 @@ services:
     volumes:
       - ./volumes/.caddy_data:/data
       - ./volumes/.caddy_config:/config
+
 volumes:
   .caddy_data:
     external: true

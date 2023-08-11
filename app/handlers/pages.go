@@ -62,7 +62,7 @@ func HandlePricingPage(cfg *config.Config) fiber.Handler {
 					{"Invite team mates", false, false},
 					{"Create multiple teams", false, false},
 				},
-				CTA: "Join wait list",
+				CTA: "Join waitlist",
 			},
 			{
 				CustomerType: "Startups",
@@ -81,7 +81,7 @@ func HandlePricingPage(cfg *config.Config) fiber.Handler {
 					{"Limited to 1 project", false, false},
 					{"Limited to 1 team", false, false},
 				},
-				CTA: "Join wait list",
+				CTA: "Join waitlist",
 			},
 			{
 				CustomerType: "Incubators",
@@ -99,7 +99,7 @@ func HandlePricingPage(cfg *config.Config) fiber.Handler {
 					{"Automated executive reports", false, true},
 					{"Growth board", false, true},
 				},
-				CTA: "Contact us",
+				CTA: "Contact me",
 			},
 		}
 		return c.Render("pages/pricing", fiber.Map{

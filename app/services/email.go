@@ -30,10 +30,10 @@ func ListenEmailRequests(cfg *config.Config) {
 					cfg,
 					"./views/emails/waitlist.html",
 					request.Customer,
-					"De-risk Wait List",
+					"De-risk Waitlist",
 					[]resend.Tag{
 						{
-							Name:  "wait-list",
+							Name:  "waitlist",
 							Value: "subscribe",
 						},
 					},
