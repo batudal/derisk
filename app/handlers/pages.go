@@ -62,7 +62,7 @@ func HandlePricingPage(cfg *config.Config) fiber.Handler {
 					{"Invite team mates", false, false},
 					{"Create multiple teams", false, false},
 				},
-				CTA: "Join beta list",
+				CTA: "Join wait list",
 			},
 			{
 				CustomerType: "Startups",
@@ -81,7 +81,7 @@ func HandlePricingPage(cfg *config.Config) fiber.Handler {
 					{"Limited to 1 project", false, false},
 					{"Limited to 1 team", false, false},
 				},
-				CTA: "Join beta list",
+				CTA: "Join wait list",
 			},
 			{
 				CustomerType: "Incubators",

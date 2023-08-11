@@ -25,15 +25,15 @@ func ListenEmailRequests(cfg *config.Config) {
 		select {
 		case request := <-cfg.EmailRequests:
 			switch request.EmailType {
-			case "join-beta-list":
+			case "join-wait-list":
 				err := sendEmail(
 					cfg,
-					"./views/emails/betalist.html",
+					"./views/emails/waitlist.html",
 					request.Customer,
-					"De-risk Beta List",
+					"De-risk Wait List",
 					[]resend.Tag{
 						{
-							Name:  "beta-list",
+							Name:  "wait-list",
 							Value: "subscribe",
 						},
 					},
@@ -99,7 +99,7 @@ func send(cfg *config.Config, customer schema.Customer, html string, subject str
 		Html:    html,
 		Tags:    tags,
 		Headers: map[string]string{
-			"List-Unsubscribe": "https://de-risk.app/unsubscribe-beta-list",
+			"List-Unsubscribe": "https://de-risk.app/unsubscribe-wait-list",
 		}})
 	if err != nil {
 		return err

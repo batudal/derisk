@@ -11,7 +11,7 @@
         about
         building in public and supporting innovators.</p>
       {{else}}
-      <p class="text-sm text-derisk-200 max-w-[360px] text-center">Looks like you're not subscribed to beta list. You
+      <p class="text-sm text-derisk-200 max-w-[360px] text-center">Looks like you're not subscribed to wait list. You
         are
         missing out starting early with De-Risk.</p>
       {{end}}
@@ -24,13 +24,13 @@
         Go to home page
       </button>
       {{else}}
-      <form hx-post="/join/beta-list?left_feedback=true" hx-target="#modal-container" hx-swap="outerHTML">
+      <form hx-post="/join/wait-list?left_feedback=true" hx-target="#modal-container" hx-swap="outerHTML">
         <input type="email" name="email" value="{{.Email}}" hidden />
         <input type="text" name="customer_type" value="{{.CustomerType}}" hidden />
         <button type="submit" class="flex flex-row items-center bg-derisk-100 rounded-md px-3 py-1.5 cursor-pointer no-underline hover:underline
         hover:underline-offset-2 active:bg-derisk-150 text-derisk-950 text-sm h-8 font-semibold
           whitespace-nowrap">
-          Subscribe to beta list
+          Subscribe to wait list
         </button>
       </form>
       {{end}}

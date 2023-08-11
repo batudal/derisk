@@ -5,9 +5,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func HandleBetaList(cfg *config.Config) fiber.Handler {
+func HandleWaitList(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		return c.Render("components/modals/beta-list", fiber.Map{})
+		return c.Render("components/modals/wait-list", fiber.Map{})
 	}
 }
 

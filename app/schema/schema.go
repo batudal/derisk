@@ -4,7 +4,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type BetaListSignup struct {
+type WaitListSignup struct {
 	Email        string             `bson:"email" validate:"required,email"`
 	CustomerType string             `bson:"customer_type"`
 	CreatedAt    primitive.DateTime `bson:"created_at"`

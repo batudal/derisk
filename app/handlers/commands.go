@@ -13,42 +13,42 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func JoinBetaList(cfg *config.Config) fiber.Handler {
+func JoinWaitList(cfg *config.Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		validate := validator.New()
-		err := validate.Struct(schema.BetaListSignup{
+		err := validate.Struct(schema.WaitListSignup{
 			Email: c.FormValue("email"),
 		})
 		if err != nil {
-			return c.Render("components/modals/beta-list", fiber.Map{
+			return c.Render("components/modals/wait-list", fiber.Map{
 				"Error": "Please enter a valid email address.",
 			})
 		}
-		var signup schema.BetaListSignup
-		coll := cfg.Mc.Database("mvp").Collection("beta-list-signups")
+		var signup schema.WaitListSignup
+		coll := cfg.Mc.Database("mvp").Collection("wait-list-signups")
 		err = coll.FindOne(c.Context(), bson.M{"email": c.FormValue("email")}).Decode(&signup)
 		if err != nil && err == mongo.ErrNoDocuments {
-			_, err := coll.InsertOne(c.Context(), schema.BetaListSignup{
+			_, err := coll.InsertOne(c.Context(), schema.WaitListSignup{
 				Email:        c.FormValue("email"),
 				CustomerType: c.FormValue("customer_type"),
 				CreatedAt:    primitive.NewDateTimeFromTime(time.Now()),
 			})
 			if err != nil {
-				return c.Render("components/modals/beta-list", fiber.Map{
+				return c.Render("components/modals/wait-list", fiber.Map{
 					"Error": "Something went wrong. Please try again later.",
 				})
 			}
 			_ = services.RequestEmail(cfg, &schema.Customer{
 				Email:        c.FormValue("email"),
 				CustomerType: c.FormValue("customer_type"),
-			}, "join-beta-list")
-			return c.Render("components/modals/beta-list-success", fiber.Map{
+			}, "join-wait-list")
+			return c.Render("components/modals/wait-list-success", fiber.Map{
 				"Email":        c.FormValue("email"),
 				"CustomerType": c.FormValue("customer_type"),
 				"LeftFeedback": c.Query("left_feedback") == "true",
 			})
 		}
-		return c.Render("components/modals/beta-list", fiber.Map{
+		return c.Render("components/modals/wait-list", fiber.Map{
 			"Error": c.FormValue("email") + " is already registered. Please try again with a different email.",
 		})
 	}
@@ -96,8 +96,8 @@ func SendFeedback(cfg *config.Config) fiber.Handler {
 			CustomerType: c.FormValue("customer_type"),
 		}, "feedback")
 		subscribed := false
-		signup_coll := cfg.Mc.Database("mvp").Collection("beta-list-signups")
-		err = signup_coll.FindOne(c.Context(), bson.M{"email": c.FormValue("email")}).Decode(&schema.BetaListSignup{})
+		signup_coll := cfg.Mc.Database("mvp").Collection("wait-list-signups")
+		err = signup_coll.FindOne(c.Context(), bson.M{"email": c.FormValue("email")}).Decode(&schema.WaitListSignup{})
 		if err == nil {
 			subscribed = true
 		}
