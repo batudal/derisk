@@ -5,7 +5,7 @@ services:
     image: batudal/de-risk-app:0.0.1
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 2
     env_file:
       - .env
   caddy:

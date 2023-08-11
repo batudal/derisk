@@ -47,7 +47,8 @@
       <textarea required min="10" max="500" name="message" rows="6" class="resize-none bg-derisk-900 rounded-md border border-derisk-800 box-border px-3
         py-1.5 text-sm text-derisk-150 placeholder-derisk-300
         ring-derisk-200 w-full"
-        placeholder="How do you measure your risks now? Do you need this tool or is it a nice to have for you?"></textarea>
+        placeholder="How do you measure your risks now? Do you need this tool or is it a nice to have for you?"
+        value="{{.Message}}">{{.Message}}</textarea>
       {{if .MessageError}}
       <p class="text-red-500 text-xs text-center max-w-[360px]">{{.MessageError}}</p>
       {{end}}

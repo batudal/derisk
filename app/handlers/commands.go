@@ -75,6 +75,7 @@ func SendFeedback(cfg *config.Config) fiber.Handler {
 			return c.Render("components/modals/feedback", fiber.Map{
 				"Email":        c.FormValue("email"),
 				"CustomerType": c.FormValue("customer_type"),
+				"Message":      c.FormValue("message"),
 				"EmailError":   email_error,
 				"MessageError": message_error,
 			})
