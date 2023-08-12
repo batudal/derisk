@@ -18,7 +18,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	//temp
 	app := fiber.New()
 	app.Post("/", func(c *fiber.Ctx) error {
 		hook, _ := github.New(github.Options.Secret(os.Getenv("GITHUB_WEBHOOK_SECRET")))
